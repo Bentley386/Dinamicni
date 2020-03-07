@@ -1,0 +1,195 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{physics}
+\geometry{margin=1in}
+
+\title{Domača naloga TDS}
+\author{Andrej Kolar-Požun, 28172042}
+
+
+
+\errorcontextlines 10000
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+\newpage
+\pagenumbering{arabic}
+
+
+Konstruiraj kanonične akcije in kote, ter poišči frekvence kot funkcije kanoničnih akcij za eliptični biljard. Poišči pogoje, da bo gibanje
+periodično.
+
+
+\section{Reševanje}
+\subsection{Hamiltonjan v eliptičnih koordinatah}
+Hamiltonjan za nalogo je(maso postavimo na 1):
+\begin{equation*}
+H = \frac{p^2}{2} + V(r) = \frac{\dot{x}^2 + \dot{y}^2}{2} + V(r)
+\end{equation*}
+
+Želimo ga izraziti s eliptičnimi koordinatami, ki se glasijo:
+\begin{align*}
+&x= f \ ch \mu \ \cos \nu \\
+&y = f\  sh \mu \  \sin \nu \\
+\end{align*}
+Točki (f,0) in (-f,0) sta koordinati gorišč. a bom postavil na 1. 
+Geometrijska predstava $\mu$ in $\nu$:
+\begin{align*}
+& \frac{x^2}{ ch^2 \mu} + \frac{y^2}{ sh^2 \mu} = 1 \\
+& \frac{x^2}{ cos^2 \nu} - \frac{y^2}{ sin^2 \nu} = 1 \\
+\end{align*}
+Torej nam konstanten $\mu$ predstavlja elipso, $\nu$ pa hiperbolo.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/prikaz.png}
+\end{subfigure}
+\end{figure}
+
+
+S temi koordinatami izrazimo časovni odvod $(x,y)$:
+\begin{align*}
+&\dot{x} = sh(\mu) cos(\nu) \dot{\mu} - ch(\mu) sin(\nu) \dot{\nu} \\
+&\dot{y} = ch(\mu) sin(\nu) \dot{\mu} + sh(\mu) cos(\nu) \dot{\nu} \\
+&\dot{x}^2 + \dot{y}^2 =  (sh^2 \mu \ cos^2 \nu + ch^2 \mu \ sin^2 \nu) (\dot{\nu}^2 + \dot{\mu}^2) 
+\end{align*}
+
+Če to vstavimo nazaj v naš člen kinetične energije hamiltonjana in odvajamo, dobimo izraze za generalizirane momente v eliptičnih koordinatah:
+\begin{align*}
+&p_{\mu} =  (sh^2 \mu \ cos^2 \nu + ch^2 \mu \ sin^2 \nu) * \dot{\mu} = (ch^2 \mu - cos^2 \nu) \dot{\mu}= h^2 \dot{\mu} \\
+&p_{\nu} =  (sh^2 \mu \ cos^2 \nu + ch^2 \mu \ sin^2 \nu) * \dot{\nu} = (ch^2 \mu - cos^2 \nu)\dot{\nu} = h^2 \dot{\nu}\\
+\end{align*}
+Kjer sem označil $h^2 = (ch^2 \mu - cos^2 \nu)$, saj se bo ta količina še večkrat pojavila.
+Hamiltonjan tako postane
+\begin{equation*}
+H = \frac{p_{\mu}^2 + p_{\nu}^2}{2 h^2} + V(\mu)
+\end{equation*}
+Kjer je $V(\mu) =0$ Če $\mu < \mu_{max}$ in $V(\mu) = \infty$ sicer.
+\subsection{Integrali gibanja}
+
+Ker Hamiltonjan ni eksplicitno odvisen od časa je prvi integral gibanja energija. Torej 
+\begin{equation*}
+F_1 = \frac{p_{\mu}^2 + p_{\nu}^2}{2 h^2} = E
+\end{equation*}
+
+Saj je potencial v območju gibanja enak nič.
+
+Drugi pa je (namig) zmnožek vrtilnih količin glede na prvo in drugo gorišče elipse torej:
+\begin{align*}
+&F_2 = ((x-1) p_{y} - y p_{x})((x+1) p_{y} - y p_{x}) = (x^2-1)p_y^2 + y^2 p_x^2 - 2yx p_y p_x  
+\end{align*}
+Ko zgornje količine izrazimo z eliptičnimi koordinatami dobimo:
+\begin{align*}
+&F_2 =  (ch^2(\mu) - cos^2(\nu))(\dot{\nu}^2 sh^2(\mu) - \dot{\mu}^2 sin^2(\nu)) =   h^2 (\dot{\nu}^2 sh^2(\mu) - \dot{\mu}^2 sin^2(\nu)) \\
+&F_2 = \frac{1}{h^2} (p_{\nu}^2 sh^2 \mu - p_{\mu}^2 sin^2 \nu) = \Gamma
+\end{align*}
+
+S pomočjo konstant gibanja lahko izrazimo
+\begin{align*}
+&p_{\nu}^2 = 2E sin^2 \nu + \Gamma  \\
+&p_{\mu}^2 = 2E sh^2 \mu - \Gamma
+\end{align*}
+Z uvedbo brezdimenzijske spremenljivke $k = \frac{\Gamma}{2E}$ izraz postane
+\begin{align*}
+&p_{\nu}^2 = 2E (sin^2 \nu + k)  \\
+&p_{\mu}^2 = 2E (sh^2 \mu - k)
+\end{align*}
+\subsection{Kanonične akcije in koti}
+\begin{equation*}
+J_{\mu} = \frac{2}{2\pi} \int_{\mu_{min}}^{\mu_{max}} p_{\mu} d\mu
+\end{equation*}
+Tukaj je $\mu_{max}$ meja biljarda, kar je inverzni hiperbolični tangens razmerja male in velike polosi.
+$\mu_{min}$ je odvisen od gibanja, ki nas zanima. Če si narišemo dinamiko(slike pridejo pozneje) vidimo, da imamo za pozitivne k nekako rotirajoče gibanje. Kavstika(envelopa trajektorij) je neka manjša elipsa, torej dobimo v tem primeru $\mu_{min}$ tako, da zahtevamo, da je $p_{\mu}=0$.
+Dobimo, da je $\mu_{min} = arsh(\sqrt{k})$
+Torej:
+\begin{align*}
+&J_{\mu} = \frac{\sqrt{2E}}{\pi} \int_{arsh\sqrt{k}}^{\mu_{max}} \sqrt{sh^2 \mu - k} d\mu 
+\end{align*}
+Akcija, ki ustreza kanonični koordinati $\nu$ je preprostejša saj so meje fiksne:
+\begin{equation*}
+J_{\nu} = \frac{4\sqrt{2E}}{2 \pi} \int_0^{\pi/2} \sqrt{sin^2 \nu + k} d\nu 
+\end{equation*}
+
+Za drugi način gibanja(negativni k), bi postopali podobno, le da so kavstike potem hiperbole.
+
+
+Ustrezne frekvence dobimo kot odvod hamiltonjana po teh akcijah. Račun se zelo zakomplicira in ga tukaj ne bom izvajal(Rezultat lahko najdete v članku "Probability distributions in classical and quantum elliptic billiards", Vega and Cerda, 2001).
+Gibanje je periodično, ko je razmerje obeh frekvenc racionalno.
+
+\section{Grafi}
+
+Parameter, ki določa tipe gibanja je k. Za pozitiven k imamo rotirajoče gibanje(kavstike so elipse), za negativne nekako skakajoče(kavstike so hiperbole).
+Mejne vrednosti za k so -1 in $(b/f)^2$, kjer je b mala polos.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/5.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/6.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/7.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/8.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/9.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/1.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/2.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/3.pdf}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.7\textwidth}
+\includegraphics[width=\linewidth]{grafi/4.pdf}
+\end{subfigure}
+\end{figure}
+\end{document}
